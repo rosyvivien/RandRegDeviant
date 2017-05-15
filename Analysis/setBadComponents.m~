@@ -1,9 +1,5 @@
 %% Set bad components after ICA run & ICA browse.
-% Enter the component numbers ccorresponding to blinks, eye  movements & heart beats below. 
-% One cell per subject.
-% This MUST be edited for your experiment before running ICA_reject1HZ. 
-% _________________________________________________________________
-% Written by Rosy Southwell 2017-04
+% Enter the component 
 
 badComponents{1} = [1 4];
 badComponents{2} = [1 2];
