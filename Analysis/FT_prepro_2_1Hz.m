@@ -37,7 +37,6 @@ for s = sublist
     scount = scount + 1;
     load([path_in file_in num2str(s) '.mat']); % variable is Fieldtrp structure called 'data'
     
-    load([dir_ft 'goodTrials_sus/sub' num2str(s)]);
     load([dir_ft 'goodChanns_sus/sub' num2str(s)]);
     goodChanns_sus = goodChanns(:);
     load([dir_ft 'goodChanns_dev/sub' num2str(s)]);
@@ -45,7 +44,8 @@ for s = sublist
     [tf,ix] = ismember(goodChanns_dev,goodChanns_sus);
     goodChanns = goodChanns_dev(tf);
     save([dir_ft 'goodChanns/sub' num2str(s)],'goodChanns');
-    
+        
+    load([dir_ft 'goodTrials_sus/sub' num2str(s)]);
     cfg = [];
     cfg.trials = goodTrials;
     cfg.channel = goodChanns;
