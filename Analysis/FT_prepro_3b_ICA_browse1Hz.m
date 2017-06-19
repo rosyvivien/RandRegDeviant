@@ -60,4 +60,5 @@ for s = sublist
     title(['Subject ' num2str(s)])
     disp(['Subject ' num2str(s) '............'])
     %% place a breakpoint below.....
+    close(gcf)    
 end

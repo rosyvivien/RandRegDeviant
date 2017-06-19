@@ -62,14 +62,19 @@ for s = sublist
         cfg.trialdef.poststim   = 4; % after stimulation (sec) , only use positive value
         [cfg] = ft_definetrial_chaitlab_RVS(cfg);
         
-        %             if length(cfg.event)>150 %in case accidentally left recording when restarted block
-        %                 cfg.event = cfg.event(end-150+1:end);
-        %                 cfg.trl = cfg.trl(end-150+1:end,:);
-        %                 cfg.event = cfg.conditionlabels(end-150+1:end);
-        %             end
+        if length(cfg.event)>150 %in case accidentally left recording when restarted block
+            cfg.event = cfg.event(end-150+1:end);
+            cfg.trl = cfg.trl(end-150+1:end,:);
+            cfg.event = cfg.conditionlabels(end-150+1:end);
+        end
         
         % apply new epochs
         data = ft_redefinetrial(cfg, longdata);
+        
+        %        Find possible NaNs in the data
+        findNaNs
+        cfg = [];
+        cfg.trials = keepTrials;
         
         %% Low pass 100 % required before downsample & needs to be at most 0.5* downsamplefs because of aliasing
         LPf = 100;

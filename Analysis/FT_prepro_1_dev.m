@@ -68,13 +68,24 @@ for s = sublist
         cfg.trialdef.trlshift = [devt_mean devt_mean 0 0];
         [cfg] = ft_definetrial_chaitlab_RVS(cfg);
         data = ft_redefinetrial(cfg, longdata);
-
+        if length(cfg.event)>100 %in case accidentally left recording when restarted block
+            cfg.event = cfg.event(end-100+1:end);
+            cfg.trl = cfg.trl(end-100+1:end,:);
+            cfg.event = cfg.conditionlabels(end-100+1:end);
+        end
+        
+        %        Find possible NaNs in the data
+        findNaNs
+        cfg = [];
+        cfg.trials = keepTrials;
+        
         %% Low pass 100 % required before downsample & needs to be at most 0.5* downsamplefs because of aliasing
         LPf = 100;
         cfg.lpfilter = 'yes';
         cfg.lpfreq = LPf;
         cfg.lpfiltord = 5;
         data = ft_preprocessing(cfg,data);
+        
         
         %% Downsample
         resamplefs = 200;
